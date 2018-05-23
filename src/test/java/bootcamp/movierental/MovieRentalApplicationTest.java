@@ -11,21 +11,18 @@ public class MovieRentalApplicationTest {
 
     @Test
     public void returnPriceAlongWithTheMovieList(){
-        Map<String, Integer> expectedMovies = new HashMap<String, Integer>(){{
-            put("The Shawshank Redemption", 20);
-            put("The Godfather", 20);
-            put("The Godfather : Part II", 20);
-            put("The Dark Knight", 20);
-            put("12 Angry Men", 20);
-            put("Schindler's List", 20);
-            put("Pulp Fiction", 20);
-        }};
+        List<Movie> expected = Arrays.asList(new Movie("The Shawshank Redemption", 20),
+                new Movie("The Godfather", 20),
+                new Movie("The Godfather : Part II", 20),
+                new Movie("The Dark Knight", 20),
+                new Movie("12 Angry Men", 20),
+                new Movie("Schindler's List", 20),
+                new Movie("Pulp Fiction", 20));
 
         MovieRentalApplication movieRentalApplication = new MovieRentalApplication();
-        HashMap<String, Integer> actualMovies = movieRentalApplication.list();
-        assertEquals(7, actualMovies.size());
-        assertEquals(expectedMovies, actualMovies);
-
+        List<Movie> actual = movieRentalApplication.list();
+        assertEquals(7, actual.size());
+        assertEquals(expected, actual);
     }
 
 }
