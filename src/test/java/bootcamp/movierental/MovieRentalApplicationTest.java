@@ -2,8 +2,7 @@ package bootcamp.movierental;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
@@ -11,12 +10,19 @@ import static org.junit.Assert.*;
 public class MovieRentalApplicationTest {
 
     @Test
-    public void viewTheListOfMovieNamesAvailable(){
-        List<String> expectedMovies = Arrays.asList("The Shawshank Redemption", "The Godfather",
-                "The Godfather : Part II", "The Dark Knight",
-                "12 Angry Men", "Schindler's List", "Pulp Fiction");
+    public void returnPriceAlongWithTheMovieList(){
+        Map<String, Integer> expectedMovies = new HashMap<String, Integer>(){{
+            put("The Shawshank Redemption", 20);
+            put("The Godfather", 20);
+            put("The Godfather : Part II", 20);
+            put("The Dark Knight", 20);
+            put("12 Angry Men", 20);
+            put("Schindler's List", 20);
+            put("Pulp Fiction", 20);
+        }};
+
         MovieRentalApplication movieRentalApplication = new MovieRentalApplication();
-        List<String> actualMovies = movieRentalApplication.list();
+        HashMap<String, Integer> actualMovies = movieRentalApplication.list();
         assertEquals(7, actualMovies.size());
         assertEquals(expectedMovies, actualMovies);
 
