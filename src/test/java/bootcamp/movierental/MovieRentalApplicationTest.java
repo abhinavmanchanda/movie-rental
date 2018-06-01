@@ -1,28 +1,32 @@
 package bootcamp.movierental;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MovieRentalApplicationTest {
 
-    @Test
-    public void returnPriceAlongWithTheMovieList(){
-        List<Movie> expected = Arrays.asList(new Movie("The Shawshank Redemption", 20),
-                new Movie("The Godfather", 20),
-                new Movie("The Godfather : Part II", 20),
-                new Movie("The Dark Knight", 20),
-                new Movie("12 Angry Men", 20),
-                new Movie("Schindler's List", 20),
-                new Movie("Pulp Fiction", 20));
+    @Mock
+    private MovieRepository movieRepository;
 
-        MovieRentalApplication movieRentalApplication = new MovieRentalApplication();
-        List<Movie> actual = movieRentalApplication.list();
-        assertEquals(7, actual.size());
-        assertEquals(expected, actual);
+    @Test
+    public void returnMovieListProvidedByTheRepository() {
+        MovieRentalApplication application = new MovieRentalApplication(movieRepository);
+        List<Movie> movies = new ArrayList<Movie>() {{
+            add(new Movie("movie2", 40));
+            add(new Movie("movie1", 10));
+        }};
+        when(movieRepository.all()).thenReturn(movies);
+        List<Movie> returnedMovies = application.list();
+        assertEquals(movies, returnedMovies);
     }
 
 }
