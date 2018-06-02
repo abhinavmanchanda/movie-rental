@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.when;
@@ -32,7 +33,7 @@ public class MovieRentalApplicationTest {
         Customer customer = new Customer();
         when(movieRepository.all()).thenReturn(movies);
         List<MovieListing> returnedMovies = application.list(customer);
-        assertEquals(movies.stream().map(movie -> new MovieListing(movie, Status.AVAILABLE)), returnedMovies);
+        assertEquals(movies.stream().map(movie -> new MovieListing(movie, Status.AVAILABLE)).collect(Collectors.toList()), returnedMovies);
     }
 
     @Test

@@ -1,16 +1,18 @@
 package bootcamp.movierental;
 
-import java.util.Arrays;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.util.List;
 
 public class MovieRepository {
     public List<Movie> all() {
-        return Arrays.asList(new Movie("The Shawshank Redemption", 20),
-                new Movie("The Godfather", 20),
-                new Movie("The Godfather : Part II", 20),
-                new Movie("The Dark Knight", 20),
-                new Movie("12 Angry Men", 20),
-                new Movie("Schindler's List", 20),
-                new Movie("Pulp Fiction", 20));
+        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("movies");
+        EntityManager em = emFactory.createEntityManager();
+        Query query = em.createQuery("SELECT m FROM Movie m");
+        List<Movie> movies = query.getResultList();
+        em.close();
+        return movies;
     }
 }
